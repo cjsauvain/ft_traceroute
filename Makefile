@@ -1,31 +1,50 @@
-#Executable Name
+#####################
+#  Executable Name	#
+#####################
 NAME = ft_traceroute
 
-#Directories
+#####################
+#    Directories	#
+#####################
 SRCS_DIR = srcs
 OBJS_DIR = objects
 INC_DIR  = include
 
-#Sources / Headers
-SRC	=	main.c
-SRCS =	$(addprefix $(SRCS_DIR)/, $(SRC))						\
+#####################
+# Sources / Headers #
+#####################
+SRC	=	main.c			\
+		ft_traceroute.c	\
+
+SRC_DISPLAY =	display_help_and_exit.c	\
+
+SRCS =	$(addprefix $(SRCS_DIR)/, $(SRC))			\
+		$(addprefix $(SRCS_DIR)/display/, $(SRC_DISPLAY))	\
+
 HEADERS = $(INC_DIR)/ft_traceroute.h
 
-#Objects
+#####################
+#      Objects      #
+#####################
 OBJS = $(subst $(SRCS_DIR)/,,$(SRCS:%.c=$(OBJS_DIR)/%.o))
 
-#Compilation
+#####################
+#    Compilation	#
+#####################
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g
 INC_FOLDER = -I $(INC_DIR)
 
-#Rules
+#####################
+#       Rules       #
+#####################
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c $(HEADERS)
 	$(CC) $(CFLAGS) $(INC_FOLDER) -c $< -o $@
 
 all: $(NAME)
 
 $(OBJS_DIR):
+	@mkdir -p $(OBJS_DIR)/display
 
 $(NAME): $(OBJS_DIR) $(OBJS)
 	$(CC) $(OBJS) $(INC_FOLDER) -o $(NAME)
