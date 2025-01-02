@@ -4,8 +4,9 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+display_bad_option_and_exit	display/display_bad_option_and_exit.c	/^void	display_bad_option_and_exit(char *option, int position)$/;"	f
 display_help_and_exit	display/display_help_and_exit.c	/^void	display_help_and_exit(void)$/;"	f
-ft_traceroute	ft_traceroute.c	/^int	ft_traceroute(char *host, char *packet_len)$/;"	f
-get_packet_len	ft_traceroute.c	/^static int	get_packet_len(char *packet_len)$/;"	f	file:
+ft_traceroute	ft_traceroute.c	/^int	ft_traceroute(char *host)$/;"	f
 main	main.c	/^int	main(int argc, char **argv)$/;"	f
-parsing	parsing.c	/^void	parsing(int argc, char **argv)$/;"	f
+parsing	parsing/parsing.c	/^char	*parsing(int argc, char **argv)$/;"	f
+process_args	parsing/parsing.c	/^static char	*process_args(char **argv)$/;"	f	file:

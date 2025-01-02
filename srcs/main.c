@@ -2,10 +2,11 @@
 
 int	main(int argc, char **argv)
 {
-	int	exit_status;
+	char	*dest_addr;
+	int		exit_status;
 
-	parsing(argc, argv + 1);
-	exit_status = ft_traceroute(argv[1], argv[2]);
+	dest_addr = parsing(argc, argv + 1);
+	exit_status = ft_traceroute(dest_addr);
 
 	return exit_status;
 }

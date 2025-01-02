@@ -16,9 +16,13 @@ INC_DIR  = include
 SRC	=	main.c			\
 		ft_traceroute.c	\
 
-SRC_DISPLAY =	display_help_and_exit.c	\
+SRC_PARSING =	parsing.c	\
+
+SRC_DISPLAY =	display_help_and_exit.c			\
+				display_bad_option_and_exit.c	\
 
 SRCS =	$(addprefix $(SRCS_DIR)/, $(SRC))			\
+		$(addprefix $(SRCS_DIR)/parsing/, $(SRC_PARSING))	\
 		$(addprefix $(SRCS_DIR)/display/, $(SRC_DISPLAY))	\
 
 HEADERS = $(INC_DIR)/ft_traceroute.h
@@ -44,10 +48,11 @@ $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c $(HEADERS)
 all: $(NAME)
 
 $(OBJS_DIR):
-	@mkdir -p $(OBJS_DIR)/display
+	@mkdir -p	$(OBJS_DIR)/parsing	\
+				$(OBJS_DIR)/display	\
 
 $(NAME): $(OBJS_DIR) $(OBJS)
-	$(CC) $(OBJS) $(INC_FOLDER) -o $(NAME)
+	$(CC) $(OBJS) -o $(NAME)
 
 clean:
 	rm -rf $(OBJS_DIR)
