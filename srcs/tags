@@ -8,3 +8,4 @@ display_help_and_exit	display/display_help_and_exit.c	/^void	display_help_and_ex
 ft_traceroute	ft_traceroute.c	/^int	ft_traceroute(char *host, char *packet_len)$/;"	f
 get_packet_len	ft_traceroute.c	/^static int	get_packet_len(char *packet_len)$/;"	f	file:
 main	main.c	/^int	main(int argc, char **argv)$/;"	f
+parsing	parsing.c	/^void	parsing(int argc, char **argv)$/;"	f

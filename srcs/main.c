@@ -4,8 +4,7 @@ int	main(int argc, char **argv)
 {
 	int	exit_status;
 
-	if (argc < 2 || argc > 3)
-		display_help_and_exit();
+	parsing(argc, argv + 1);
 	exit_status = ft_traceroute(argv[1], argv[2]);
 
 	return exit_status;
