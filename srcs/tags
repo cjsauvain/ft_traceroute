@@ -4,9 +4,20 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+build_ip_hdr	build_ip_pckt.c	/^static struct iphdr	build_ip_hdr(struct sockaddr_in *dest_addr, uint32_t source_addr)$/;"	f	file:
+build_ip_pckt	build_ip_pckt.c	/^t_ip_pckt	build_ip_pckt(struct sockaddr_in *dest_addr, char *dest_addr_str)$/;"	f
+build_udp_packet	build_ip_pckt.c	/^static t_udp_pckt	build_udp_packet(void)$/;"	f	file:
+create_socket	create_socket.c	/^int	create_socket(void)$/;"	f
 display_bad_option_and_exit	display/display_bad_option_and_exit.c	/^void	display_bad_option_and_exit(char *option, int position)$/;"	f
 display_help_and_exit	display/display_help_and_exit.c	/^void	display_help_and_exit(void)$/;"	f
-ft_traceroute	ft_traceroute.c	/^int	ft_traceroute(char *host)$/;"	f
+ft_traceroute	ft_traceroute.c	/^int	ft_traceroute(char *dest_addr_str)$/;"	f
+get_addr_struct	get_addr_struct.c	/^struct sockaddr_in	*get_addr_struct(char *dest_addr_str)$/;"	f
+get_source_addr	build_ip_pckt.c	/^static uint32_t	get_source_addr(char *dest_addr_str)$/;"	f	file:
+loop	ft_traceroute.c	/^static int	loop(t_traceroute *traceroute, char *dest_addr_str)$/;"	f	file:
 main	main.c	/^int	main(int argc, char **argv)$/;"	f
 parsing	parsing/parsing.c	/^char	*parsing(int argc, char **argv)$/;"	f
 process_args	parsing/parsing.c	/^static char	*process_args(char **argv)$/;"	f	file:
+process_checksum	process_checksum.c	/^unsigned short	process_checksum(unsigned short *icmp_pckt, int len)$/;"	f
+send_probe	send_probes.c	/^static int	send_probe()$/;"	f	file:
+send_probes	send_probes.c	/^int	send_probes()$/;"	f
+set_sock_opt	create_socket.c	/^static void	set_sock_opt(int fd_socket)$/;"	f	file:
