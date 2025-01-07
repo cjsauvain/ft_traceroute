@@ -6,17 +6,19 @@ static void	set_sock_opt(int fd_socket)
 	int	ttl;
 
 	ttl = 1;
-	if (setsockopt(fd_socket, IPPROTO_UDP, IP_TTL, &ttl, sizeof(ttl)) == -1)
+	if (setsockopt(fd_socket, IPPROTO_IP, IP_TTL, &ttl, sizeof(ttl)) == -1)
 	{
 		close(fd_socket);
 		perror("setsockopt");
+		exit(1);
 	}
 	timeout.tv_sec = PROBS_TIMEOUT_SEC;
 	timeout.tv_usec = PROBS_TIMEOUT_USEC;
-	if (setsockopt(fd_socket, IPPROTO_UDP, SO_RCVTIMEO, &timeout, sizeof(timeout)) == -1)
+	if (setsockopt(fd_socket, IPPROTO_IP, SO_RCVTIMEO, &timeout, sizeof(timeout)) == -1)
 	{
 		close(fd_socket);
 		perror("setsockopt");
+		exit(1);
 	}
 }
 
