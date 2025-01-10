@@ -15,7 +15,10 @@ main	main.c	/^int	main(int argc, char **argv)$/;"	f
 parsing	parsing/parsing.c	/^char	*parsing(int argc, char **argv)$/;"	f
 process_args	parsing/parsing.c	/^static char	*process_args(char **argv)$/;"	f	file:
 process_checksum	process_checksum.c	/^unsigned short	process_checksum(unsigned short *icmp_pckt, int len)$/;"	f
+receive_icmp_reply	receive_icmp_reply.c	/^void	receive_icmp_reply(int fd_socket)$/;"	f
 send_probe	send_probes.c	/^static int	send_probe()$/;"	f	file:
 send_probes	loop.c	/^static int	send_probes(int fd_socket, struct sockaddr_in *dest_addr, char *buffer)$/;"	f	file:
 send_probes	send_probes.c	/^int	send_probes()$/;"	f
 set_sock_opt	create_socket.c	/^static void	set_sock_opt(int fd_socket)$/;"	f	file:
+set_timeout_option	create_socket.c	/^static void	set_timeout_option(int fd_socket)$/;"	f	file:
+set_ttl_option	create_socket.c	/^void	set_ttl_option(int fd_socket, int ttl_increment)$/;"	f

@@ -15,12 +15,12 @@ INC_DIR  = include
 #####################
 SRC	=	main.c						\
 		ft_traceroute.c				\
-		build_udp_pckt.c			\
 		get_addr_struct.c			\
 		process_checksum.c			\
 		create_socket.c				\
 		loop.c						\
 		display_traceroute_dest.c	\
+		receive_icmp_reply.c		\
 
 SRC_PARSING =	parsing.c	\
 

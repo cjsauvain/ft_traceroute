@@ -50,10 +50,11 @@ typedef struct	s_traceroute
 int					ft_traceroute(char *dest_addr);
 struct sockaddr_in  get_addr_struct(char *dest_addr_str);
 unsigned short  	process_checksum(unsigned short *icmp_pckt, int len);
-t_udp_pckt  		build_udp_packet(void);
 int 				create_socket(void);
+void    			set_ttl_option(int fd_socket, int ttl_increment);
 int 				loop(t_traceroute *traceroute, char *dest_addr_str);
 void    			display_traceroute_dest(char *dest_addr_str, struct sockaddr_in dest_addr);
+void    			receive_icmp_reply(int fd_socket);
 
 /*******************/
 /*     PARSING     */

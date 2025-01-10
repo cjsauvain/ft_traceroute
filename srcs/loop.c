@@ -23,17 +23,18 @@ int	loop(t_traceroute *traceroute, char *dest_addr_str)
 {
 	char	buffer[BUFFER_SIZE];
 	int	status;
-	int	hops;
+	//int	hops;
 
 	memcpy(buffer, "@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_", UDP_DATA_SIZE);
-	status =  0;
-	hops = MAX_HOP;
+	//hops = 0;
 	status = send_probes(traceroute->fd_socket, &traceroute->dest_addr, buffer);
 	display_traceroute_dest(dest_addr_str, traceroute->dest_addr);
-	while (hops)
+	receive_icmp_reply(traceroute->fd_socket);
+	/*while (hops < MAX_HOP)
 	{
-		status = send_probes(traceroute->fd_socket, traceroute->dest_addr, buffer);
-		hops--;
-	}
+		set_ttl_option(traceroute->fd_socket, hops + 1);
+		status = send_probes(traceroute->fd_socket, &traceroute->dest_addr, buffer);
+		hops++;
+	}*/
 	return status;
 }
