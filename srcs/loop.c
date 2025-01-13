@@ -27,9 +27,9 @@ int	loop(t_traceroute *traceroute, char *dest_addr_str)
 
 	memcpy(buffer, "@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_", UDP_DATA_SIZE);
 	//hops = 0;
-	status = send_probes(traceroute->fd_socket, &traceroute->dest_addr, buffer);
+	status = send_probes(traceroute->send_socket, &traceroute->dest_addr, buffer);
 	display_traceroute_dest(dest_addr_str, traceroute->dest_addr);
-	receive_icmp_reply(traceroute->fd_socket);
+	receive_icmp_reply(traceroute->recverr_socket);
 	/*while (hops < MAX_HOP)
 	{
 		set_ttl_option(traceroute->fd_socket, hops + 1);

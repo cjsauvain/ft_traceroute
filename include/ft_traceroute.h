@@ -11,6 +11,7 @@
 # include <linux/udp.h>
 # include <string.h>
 # include <arpa/inet.h>
+# include <errno.h>
 
 # define	UDP_HDR_SIZE		8
 # define	UDP_DATA_SIZE		32
@@ -38,7 +39,8 @@ typedef struct	s_stats
 
 typedef struct	s_traceroute
 {
-	int					fd_socket;
+	int					send_socket;
+	int					recverr_socket;
 	//t_udp_pckt			udp_pckt;
 	struct sockaddr_in	dest_addr;
 	t_stats				stats;
@@ -50,7 +52,7 @@ typedef struct	s_traceroute
 int					ft_traceroute(char *dest_addr);
 struct sockaddr_in  get_addr_struct(char *dest_addr_str);
 unsigned short  	process_checksum(unsigned short *icmp_pckt, int len);
-int 				create_socket(void);
+void 				create_sockets(int *send_socket, int *recverr_socket);
 void    			set_ttl_option(int fd_socket, int ttl_increment);
 int 				loop(t_traceroute *traceroute, char *dest_addr_str);
 void    			display_traceroute_dest(char *dest_addr_str, struct sockaddr_in dest_addr);

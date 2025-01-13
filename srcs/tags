@@ -4,12 +4,14 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
-create_socket	create_socket.c	/^int	create_socket(void)$/;"	f
+check_errno	receive_icmp_reply.c	/^static void	check_errno(void)$/;"	f	file:
+create_sockets	create_sockets.c	/^void	create_sockets(int *send_socket, int *recverrr_socket)$/;"	f
 display_bad_option_and_exit	display/display_bad_option_and_exit.c	/^void	display_bad_option_and_exit(char *option, int position)$/;"	f
 display_help_and_exit	display/display_help_and_exit.c	/^void	display_help_and_exit(void)$/;"	f
 display_traceroute_dest	display_traceroute_dest.c	/^void	display_traceroute_dest(char *dest_addr_str, struct sockaddr_in dest_addr)$/;"	f
 ft_traceroute	ft_traceroute.c	/^int	ft_traceroute(char *dest_addr_str)$/;"	f
 get_addr_struct	get_addr_struct.c	/^struct sockaddr_in	get_addr_struct(char *dest_addr_str)$/;"	f
+initialize_msghdr	receive_icmp_reply.c	/^static struct msghdr	initialize_msghdr(void)$/;"	f	file:
 loop	loop.c	/^int	loop(t_traceroute *traceroute, char *dest_addr_str)$/;"	f
 main	main.c	/^int	main(int argc, char **argv)$/;"	f
 parsing	parsing/parsing.c	/^char	*parsing(int argc, char **argv)$/;"	f
@@ -19,6 +21,6 @@ receive_icmp_reply	receive_icmp_reply.c	/^void	receive_icmp_reply(int fd_socket)
 send_probe	send_probes.c	/^static int	send_probe()$/;"	f	file:
 send_probes	loop.c	/^static int	send_probes(int fd_socket, struct sockaddr_in *dest_addr, char *buffer)$/;"	f	file:
 send_probes	send_probes.c	/^int	send_probes()$/;"	f
-set_sock_opt	create_socket.c	/^static void	set_sock_opt(int fd_socket)$/;"	f	file:
-set_timeout_option	create_socket.c	/^static void	set_timeout_option(int fd_socket)$/;"	f	file:
-set_ttl_option	create_socket.c	/^void	set_ttl_option(int fd_socket, int ttl_increment)$/;"	f
+set_recverr_option	create_sockets.c	/^static void	set_recverr_option(int fd_socket)$/;"	f	file:
+set_timeout_option	create_sockets.c	/^static void	set_timeout_option(int fd_socket)$/;"	f	file:
+set_ttl_option	create_sockets.c	/^void	set_ttl_option(int fd_socket, int ttl_increment)$/;"	f

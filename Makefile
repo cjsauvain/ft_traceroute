@@ -17,7 +17,7 @@ SRC	=	main.c						\
 		ft_traceroute.c				\
 		get_addr_struct.c			\
 		process_checksum.c			\
-		create_socket.c				\
+		create_sockets.c			\
 		loop.c						\
 		display_traceroute_dest.c	\
 		receive_icmp_reply.c		\
