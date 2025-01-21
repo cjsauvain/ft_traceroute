@@ -1,0 +1,1 @@
+- Add t_ip_pckt structures (i need ip header manually set to compare ip checksum sent and ip checksum received)

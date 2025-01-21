@@ -4,23 +4,23 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
-check_errno	receive_icmp_reply.c	/^static void	check_errno(void)$/;"	f	file:
-create_sockets	create_sockets.c	/^void	create_sockets(int *send_socket, int *recverrr_socket)$/;"	f
+build_udp_pckt	build_udp_pckt.c	/^t_udp_pckt	build_udp_pckt(struct sockaddr_in dest_addr_udp)$/;"	f
+clean_exit	clean_exit.c	/^void	clean_exit(int send_socket, int recv_socket, const char *origin, int status)$/;"	f
+create_sockets	create_sockets.c	/^void	create_sockets(int *send_socket, int *recv_socket)$/;"	f
 display_bad_option_and_exit	display/display_bad_option_and_exit.c	/^void	display_bad_option_and_exit(char *option, int position)$/;"	f
 display_help_and_exit	display/display_help_and_exit.c	/^void	display_help_and_exit(void)$/;"	f
-display_traceroute_dest	display_traceroute_dest.c	/^void	display_traceroute_dest(char *dest_addr_str, struct sockaddr_in dest_addr)$/;"	f
+display_traceroute_dest	display_traceroute_dest.c	/^void	display_traceroute_dest(char *dest_addr_udp_str, struct sockaddr_in dest_addr_udp)$/;"	f
 ft_traceroute	ft_traceroute.c	/^int	ft_traceroute(char *dest_addr_str)$/;"	f
-get_addr_struct	get_addr_struct.c	/^struct sockaddr_in	get_addr_struct(char *dest_addr_str)$/;"	f
-initialize_msghdr	receive_icmp_reply.c	/^static struct msghdr	initialize_msghdr(void)$/;"	f	file:
+get_addr_struct	get_addr_structures.c	/^static int	get_addr_struct(struct sockaddr_in *dest_addr, char *dest_addr_str, int proto)$/;"	f	file:
+get_addr_structures	get_addr_structures.c	/^int	get_addr_structures(struct sockaddr_in *dest_addr_udp, \\$/;"	f
+get_icmp_reply	receive_icmp_reply.c	/^static t_icmp_reply	get_icmp_reply(char *buffer)$/;"	f	file:
 loop	loop.c	/^int	loop(t_traceroute *traceroute, char *dest_addr_str)$/;"	f
 main	main.c	/^int	main(int argc, char **argv)$/;"	f
 parsing	parsing/parsing.c	/^char	*parsing(int argc, char **argv)$/;"	f
 process_args	parsing/parsing.c	/^static char	*process_args(char **argv)$/;"	f	file:
-process_checksum	process_checksum.c	/^unsigned short	process_checksum(unsigned short *icmp_pckt, int len)$/;"	f
-receive_icmp_reply	receive_icmp_reply.c	/^void	receive_icmp_reply(int fd_socket)$/;"	f
+receive_icmp_reply	receive_icmp_reply.c	/^void	receive_icmp_reply(t_traceroute *traceroute)$/;"	f
 send_probe	send_probes.c	/^static int	send_probe()$/;"	f	file:
-send_probes	loop.c	/^static int	send_probes(int fd_socket, struct sockaddr_in *dest_addr, char *buffer)$/;"	f	file:
+send_probes	loop.c	/^static int	send_probes(t_traceroute *traceroute)$/;"	f	file:
 send_probes	send_probes.c	/^int	send_probes()$/;"	f
-set_recverr_option	create_sockets.c	/^static void	set_recverr_option(int fd_socket)$/;"	f	file:
-set_timeout_option	create_sockets.c	/^static void	set_timeout_option(int fd_socket)$/;"	f	file:
-set_ttl_option	create_sockets.c	/^void	set_ttl_option(int fd_socket, int ttl_increment)$/;"	f
+set_timeout_option	create_sockets.c	/^static int	set_timeout_option(int recv_socket)$/;"	f	file:
+set_ttl_option	create_sockets.c	/^int	set_ttl_option(int send_socket, int ttl)$/;"	f

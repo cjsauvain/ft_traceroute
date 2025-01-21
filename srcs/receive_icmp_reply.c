@@ -1,61 +1,34 @@
 #include "ft_traceroute.h"
 
-static struct msghdr	initialize_msghdr(void)
+static t_icmp_reply	get_icmp_reply(char *buffer)
 {
-	struct msghdr		msghdr;
-	struct sockaddr		sender_addr;
-	char				buffer[BUFFER_SIZE];
-	struct iovec		msg_iov;
-	char 				control_buffer[BUFFER_SIZE];
+	t_icmp_reply	icmp_reply;
 
-	msg_iov.iov_base = buffer;
-	msg_iov.iov_len = BUFFER_SIZE;
+	memset(&icmp_reply.iphdr, 0, IP_HDR_SIZE);
+	memset(&icmp_reply.icmphdr, 0, ICMP_HDR_SIZE);
+	memset(&icmp_reply.iphdr, 0, IP_HDR_SIZE);
+	memset(&icmp_reply.udp_pckt, 0, UDP_PCKT_SIZE);
 
-	memset(&msghdr, 0, sizeof(msghdr));
-	msghdr.msg_name = &sender_addr;
-	msghdr.msg_namelen = sizeof(sender_addr);
-	msghdr.msg_iov = &msg_iov;
-	msghdr.msg_iovlen = 1;
-	msghdr.msg_control = control_buffer;
-	msghdr.msg_controllen = BUFFER_SIZE;
+	memcpy(&icmp_reply.icmphdr, buffer, ICMP_HDR_SIZE);
+	memcpy(&icmp_reply.iphdr, buffer + ICMP_HDR_SIZE, IP_HDR_SIZE);
+	memcpy(&icmp_reply.udp_pckt, buffer + ICMP_HDR_SIZE + IP_HDR_SIZE, UDP_PCKT_SIZE);
 
-	return msghdr;
+	return icmp_reply;
 }
 
-static void	check_errno(void)
+void	receive_icmp_reply(t_traceroute *traceroute)
 {
-	if (errno == EAGAIN)
-		printf("errno: EAGAIN\n");
-	if (errno == EWOULDBLOCK)
-		printf("errno: EWOULDBLOCK\n");
-	if (errno == EBADF)
-		printf("errno: EBADF\n");
-	if (errno == ECONNREFUSED)
-		printf("errno: ECONNREFUSED\n");
-	if (errno == EFAULT)
-		printf("errno: EFAULT\n");
-	if (errno == EINTR)
-		printf("errno: EINTR\n");
-	if (errno == EINVAL)
-		printf("errno: EINVAL\n");
-	if (errno == ENOMEM)
-		printf("errno: ENOMEM\n");
-	if (errno == ENOTCONN)
-		printf("errno: ENOTCONN\n");
-	if (errno == ENOTSOCK)
-		printf("errno: ENOTSOCK\n");
-}
+	ssize_t			bytes_received;
+	char			buffer[BUFFER_SIZE];
+	struct sockaddr	*dest_addr_cast;
+	socklen_t		dest_addr_len;
 
-void	receive_icmp_reply(int fd_socket)
-{
-	struct msghdr	msghdr;
-
-	memset(&msghdr, 0, sizeof(msghdr));
-	msghdr = initialize_msghdr();
-	if (recvmsg(fd_socket, &msghdr, MSG_ERRQUEUE) == -1)
-	{
-		//perror("recvmsg");
-		check_errno();
-		exit(1);//do clean exit
-	}
+	memset(buffer, 0, BUFFER_SIZE);
+	dest_addr_cast = (struct sockaddr *)&traceroute->dest_addr_icmp;
+	dest_addr_len = sizeof(dest_addr_cast);
+	bytes_received = recvfrom(traceroute->recv_socket, buffer, BUFFER_SIZE, \
+						0, dest_addr_cast, &dest_addr_len);
+	if (bytes_received == -1)
+		clean_exit(traceroute->send_socket, traceroute->recv_socket, "ft_traceroute: recvfrom", 1);
+	traceroute->icmp_reply = get_icmp_reply(buffer);
 }
