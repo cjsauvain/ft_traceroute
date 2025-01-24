@@ -4,20 +4,25 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
-build_udp_pckt	build_udp_pckt.c	/^t_udp_pckt	build_udp_pckt(struct sockaddr_in dest_addr_udp)$/;"	f
+build_first_ip_hdr	build_ip_pckt.c	/^static struct iphdr	build_first_ip_hdr(struct sockaddr_in dest_addr_udp)$/;"	f	file:
+build_first_ip_pckt	build_ip_pckt.c	/^t_ip_pckt	build_first_ip_pckt(struct sockaddr_in dest_addr_udp)$/;"	f
+build_first_udp_pckt	build_ip_pckt.c	/^static t_udp_pckt	build_first_udp_pckt(struct sockaddr_in dest_addr_udp)$/;"	f	file:
 clean_exit	clean_exit.c	/^void	clean_exit(int send_socket, int recv_socket, const char *origin, int status)$/;"	f
 create_sockets	create_sockets.c	/^void	create_sockets(int *send_socket, int *recv_socket)$/;"	f
 display_bad_option_and_exit	display/display_bad_option_and_exit.c	/^void	display_bad_option_and_exit(char *option, int position)$/;"	f
 display_help_and_exit	display/display_help_and_exit.c	/^void	display_help_and_exit(void)$/;"	f
+display_routing_infos	display_routing_infos.c	/^void	display_routing_infos(t_icmp_reply icmp_reply)$/;"	f
 display_traceroute_dest	display_traceroute_dest.c	/^void	display_traceroute_dest(char *dest_addr_udp_str, struct sockaddr_in dest_addr_udp)$/;"	f
 ft_traceroute	ft_traceroute.c	/^int	ft_traceroute(char *dest_addr_str)$/;"	f
 get_addr_struct	get_addr_structures.c	/^static int	get_addr_struct(struct sockaddr_in *dest_addr, char *dest_addr_str, int proto)$/;"	f	file:
 get_addr_structures	get_addr_structures.c	/^int	get_addr_structures(struct sockaddr_in *dest_addr_udp, \\$/;"	f
 get_icmp_reply	receive_icmp_reply.c	/^static t_icmp_reply	get_icmp_reply(char *buffer)$/;"	f	file:
+initialize_traceroute_struct	initialize_traceroute_struct.c	/^t_traceroute	initialize_traceroute_struct(char *dest_addr_str)$/;"	f
 loop	loop.c	/^int	loop(t_traceroute *traceroute, char *dest_addr_str)$/;"	f
 main	main.c	/^int	main(int argc, char **argv)$/;"	f
 parsing	parsing/parsing.c	/^char	*parsing(int argc, char **argv)$/;"	f
 process_args	parsing/parsing.c	/^static char	*process_args(char **argv)$/;"	f	file:
+process_icmp_reply	receive_icmp_reply.c	/^static t_icmp_reply	process_icmp_reply(char *buffer)$/;"	f	file:
 receive_icmp_reply	receive_icmp_reply.c	/^void	receive_icmp_reply(t_traceroute *traceroute)$/;"	f
 send_probe	send_probes.c	/^static int	send_probe()$/;"	f	file:
 send_probes	loop.c	/^static int	send_probes(t_traceroute *traceroute)$/;"	f	file:

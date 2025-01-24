@@ -13,15 +13,17 @@ INC_DIR  = include
 #####################
 # Sources / Headers #
 #####################
-SRC	=	main.c						\
-		ft_traceroute.c				\
-		get_addr_structures.c		\
-		create_sockets.c			\
-		loop.c						\
-		display_traceroute_dest.c	\
-		receive_icmp_reply.c		\
-		clean_exit.c				\
-		build_udp_pckt.c			\
+SRC	=	main.c							\
+		ft_traceroute.c					\
+		get_addr_structures.c			\
+		create_sockets.c				\
+		loop.c							\
+		display_traceroute_dest.c		\
+		receive_icmp_reply.c			\
+		clean_exit.c					\
+		build_ip_pckt.c					\
+		initialize_traceroute_struct.c	\
+		display_routing_infos.c			\
 
 SRC_PARSING =	parsing.c	\
 

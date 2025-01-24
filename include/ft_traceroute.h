@@ -28,6 +28,7 @@
 # define	PROBS_TIMEOUT_SEC	3
 # define	PROBS_TIMEOUT_USEC	0
 # define	BUFFER_SIZE			4096
+# define	WAIT				100000
 
 typedef struct	s_udp_pckt
 {
@@ -35,18 +36,25 @@ typedef struct	s_udp_pckt
 	char			data[UDP_DATA_SIZE];
 }	t_udp_pckt;
 
+typedef struct	s_ip_pckt
+{
+	struct iphdr	iphdr;
+	t_udp_pckt		udp_pckt;
+}	t_ip_pckt;
+
 typedef struct	s_icmp_reply
 {
 	struct iphdr	iphdr;
 	struct icmphdr	icmphdr;
-	t_udp_pckt		udp_pckt;
+	struct iphdr	original_iphdr;
+	t_udp_pckt		original_udp_pckt;
 }	t_icmp_reply;
 
 typedef struct	s_traceroute
 {
 	int					send_socket;
 	int					recv_socket;
-	t_udp_pckt			udp_pckt;
+	t_ip_pckt			ip_pckt;
 	t_icmp_reply		icmp_reply;
 	struct sockaddr_in	dest_addr_udp;
 	struct sockaddr_in	dest_addr_icmp;
@@ -66,7 +74,9 @@ void    			display_traceroute_dest(char *dest_addr_str, \
 void    			receive_icmp_reply(t_traceroute *traceroute);
 void    			clean_exit(int send_socket, int recv_socket, \
 						const char *origin, int status);
-t_udp_pckt  		build_udp_pckt(struct sockaddr_in dest_addr_udp);
+t_ip_pckt			build_first_ip_pckt(struct sockaddr_in dest_addr_udp);
+t_traceroute    	initialize_traceroute_struct(char *dest_addr_str);
+void    			display_routing_infos(t_icmp_reply icmp_reply);
 
 /*******************/
 /*     PARSING     */

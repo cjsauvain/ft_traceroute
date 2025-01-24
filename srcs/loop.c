@@ -7,7 +7,7 @@ static int	send_probes(t_traceroute *traceroute)
 	probes = 0;
 	while (probes < 3)
 	{
-		if (sendto(traceroute->send_socket, &traceroute->udp_pckt, \
+		if (sendto(traceroute->send_socket, &traceroute->ip_pckt.udp_pckt, \
 				UDP_PCKT_SIZE, 0, \
 				(const struct sockaddr *)&traceroute->dest_addr_udp, \
 				sizeof(struct sockaddr)) == -1)
@@ -16,7 +16,8 @@ static int	send_probes(t_traceroute *traceroute)
 			return 1;
 		}
 		receive_icmp_reply(traceroute);
-		usleep(10000);
+		//traceroute->ip_pckt.iphdr.id += htons(1);
+		usleep(WAIT);
 		probes++;
 	}
 	return 0;
