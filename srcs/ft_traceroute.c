@@ -6,7 +6,7 @@ int	ft_traceroute(char *dest_addr_str)
 	int				status;
 
 	traceroute = initialize_traceroute_struct(dest_addr_str);
-	traceroute.ip_pckt = build_first_ip_pckt(traceroute.dest_addr_udp);
+	traceroute.ip_pckt = build_ip_pckt(traceroute.dest_addr_udp);
 	status = loop(&traceroute, dest_addr_str);
 
 	return status;

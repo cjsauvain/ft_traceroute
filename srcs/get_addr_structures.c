@@ -23,7 +23,7 @@ static int	get_addr_struct(struct sockaddr_in *dest_addr, char *dest_addr_str, i
 	if (status)
 		return status;
 	*dest_addr = *(struct sockaddr_in *)res->ai_addr;
-	dest_addr->sin_port = htons(STARTING_PORT);
+	dest_addr->sin_port = STARTING_PORT;
 	freeaddrinfo(res);
 	return 0;
 }

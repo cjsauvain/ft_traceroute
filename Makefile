@@ -24,6 +24,9 @@ SRC	=	main.c							\
 		build_ip_pckt.c					\
 		initialize_traceroute_struct.c	\
 		display_routing_infos.c			\
+		get_time.c						\
+		get_checksum.c					\
+		ft_strcmp.c						\
 
 SRC_PARSING =	parsing.c	\
 

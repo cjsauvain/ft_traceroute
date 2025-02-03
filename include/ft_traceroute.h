@@ -14,21 +14,24 @@
 # include <linux/udp.h>
 # include <linux/icmp.h>
 # include <linux/ip.h>
+# include <sys/time.h>
+# include <stdbool.h>
 
 # define	UDP_HDR_SIZE		8
 # define	UDP_DATA_SIZE		9
 # define	UDP_PCKT_SIZE		UDP_HDR_SIZE + UDP_DATA_SIZE
 # define	ICMP_HDR_SIZE		8
 # define	IP_HDR_SIZE			20
+# define	PSEUDO_HDR_SIZE		12
 # define	ICMP_DATA_SIZE		IP_HDR_SIZE + UDP_PCKT_SIZE
 # define	MAX_HOP				64
 # define	STARTING_PORT		33434
 # define	LOW_PRIVATE_PORT	49152
 # define	HIGH_PRIVATE_PORT	65535
 # define	PROBS_TIMEOUT_SEC	3
-# define	PROBS_TIMEOUT_USEC	0
+# define	PROBS_TIMEOUT_USEC	3000000
 # define	BUFFER_SIZE			4096
-# define	WAIT				100000
+# define	WAIT				1000
 
 typedef struct	s_udp_pckt
 {
@@ -58,6 +61,9 @@ typedef struct	s_traceroute
 	t_icmp_reply		icmp_reply;
 	struct sockaddr_in	dest_addr_udp;
 	struct sockaddr_in	dest_addr_icmp;
+	suseconds_t			tv_sent;
+	suseconds_t			tv_recv;
+	bool				port_unreachable;
 }	t_traceroute;
 
 /*******************/
@@ -67,16 +73,18 @@ int					ft_traceroute(char *dest_addr);
 int					get_addr_structures(struct sockaddr_in *dest_addr_udp, \
 						struct sockaddr_in *dest_addr_icmp, char *dest_addr_str);
 void 				create_sockets(int *send_socket, int *recverr_socket);
-int					set_ttl_option(int send_socket, int ttl_increment);
 int 				loop(t_traceroute *traceroute, char *dest_addr_str);
 void    			display_traceroute_dest(char *dest_addr_str, \
 						struct sockaddr_in dest_addr_udp);
-void    			receive_icmp_reply(t_traceroute *traceroute);
+void    			receive_icmp_reply(t_traceroute *traceroute, int probe, int hop);
 void    			clean_exit(int send_socket, int recv_socket, \
 						const char *origin, int status);
-t_ip_pckt			build_first_ip_pckt(struct sockaddr_in dest_addr_udp);
+t_ip_pckt			build_ip_pckt(struct sockaddr_in dest_addr_udp);
 t_traceroute    	initialize_traceroute_struct(char *dest_addr_str);
-void    			display_routing_infos(t_icmp_reply icmp_reply);
+void    			display_routing_infos(t_traceroute *traceroute, int probe, int hop);
+suseconds_t 		get_time(void);
+u_int16_t   		get_checksum(t_ip_pckt ip_pckt);
+int 				ft_strcmp(char *s1, char *s2);
 
 /*******************/
 /*     PARSING     */
