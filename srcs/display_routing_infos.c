@@ -32,12 +32,13 @@ static void	display_stats(t_icmp_reply icmp_reply, suseconds_t tv_sent, \
 	printf("%li,%.03ims", int_part, dec_part);
 }
 
-void	display_routing_infos(t_traceroute *traceroute, int probe, int hop)
+void	display_routing_infos(t_traceroute *traceroute, ssize_t bytes_received, \
+								int probe, int hop)
 {
 	if (!probe)
 		display_hop_number(hop);
 	display_spaces(probe);
-	if (traceroute->tv_recv - traceroute->tv_sent > PROBS_TIMEOUT_USEC)
+	if (bytes_received == -1)
 	{
 		printf("*");
 		fflush(stdout);

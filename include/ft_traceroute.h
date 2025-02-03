@@ -29,9 +29,7 @@
 # define	LOW_PRIVATE_PORT	49152
 # define	HIGH_PRIVATE_PORT	65535
 # define	PROBS_TIMEOUT_SEC	3
-# define	PROBS_TIMEOUT_USEC	3000000
 # define	BUFFER_SIZE			4096
-# define	WAIT				1000
 
 typedef struct	s_udp_pckt
 {
@@ -81,7 +79,8 @@ void    			clean_exit(int send_socket, int recv_socket, \
 						const char *origin, int status);
 t_ip_pckt			build_ip_pckt(struct sockaddr_in dest_addr_udp);
 t_traceroute    	initialize_traceroute_struct(char *dest_addr_str);
-void    			display_routing_infos(t_traceroute *traceroute, int probe, int hop);
+void    			display_routing_infos(t_traceroute *traceroute, \
+						ssize_t bytes_received, int probe, int hop);
 suseconds_t 		get_time(void);
 u_int16_t   		get_checksum(t_ip_pckt ip_pckt);
 int 				ft_strcmp(char *s1, char *s2);

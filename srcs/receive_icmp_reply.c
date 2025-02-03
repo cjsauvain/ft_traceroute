@@ -44,13 +44,13 @@ void	receive_icmp_reply(t_traceroute *traceroute, int probe, int hop)
 							&traceroute->dest_addr_icmp, &traceroute->tv_recv);
 		if (bytes_received == -1)
 		{
-			display_routing_infos(traceroute, probe, hop);
+			display_routing_infos(traceroute, bytes_received, probe, hop);
 			return ;
 		}
 		if (!process_icmp_reply(buffer, &traceroute->icmp_reply, \
 				traceroute->ip_pckt.iphdr.id))
 		{
-			display_routing_infos(traceroute, probe, hop);
+			display_routing_infos(traceroute, bytes_received, probe, hop);
 			return ;
 		}
 	}
