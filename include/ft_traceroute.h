@@ -28,7 +28,7 @@
 # define	STARTING_PORT		33434
 # define	LOW_PRIVATE_PORT	49152
 # define	HIGH_PRIVATE_PORT	65535
-# define	PROBS_TIMEOUT_SEC	3
+# define	PROBS_TIMEOUT_SEC	1
 # define	BUFFER_SIZE			4096
 
 typedef struct	s_udp_pckt

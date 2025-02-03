@@ -2,7 +2,10 @@
 
 void	display_hop_number(int hop)
 {
-	printf("  %d", hop);
+	int	width;
+
+	width = 2;
+	printf(" %*d", width, hop);
 }
 
 static void	display_spaces(int probe)
