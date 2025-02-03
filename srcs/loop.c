@@ -23,7 +23,6 @@ static int	send_probes(t_traceroute *traceroute, int hop)
 		traceroute->tv_sent = get_time();
 		receive_icmp_reply(traceroute, probes, hop);
 		traceroute->ip_pckt.iphdr.id += htons(1);
-		usleep(WAIT);
 		probes++;
 	}
 	return 0;
@@ -40,7 +39,6 @@ int	loop(t_traceroute *traceroute, char *dest_addr_str)
 	while (hops <= MAX_HOP && traceroute->port_unreachable == false)
 	{
 		hops++;
-		usleep(1000 * WAIT);
 		traceroute->dest_addr_udp.sin_port++;
 		traceroute->dest_addr_icmp.sin_port++;
 		traceroute->ip_pckt.udp_pckt.udphdr.dest = htons(traceroute->dest_addr_udp.sin_port);
