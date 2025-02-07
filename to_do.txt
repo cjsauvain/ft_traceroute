@@ -1,1 +1,0 @@
--Fix display when arriving at 10 hop (lines are not aligned anymore because of the offset of a 2 digital number compared to 1 digital number)

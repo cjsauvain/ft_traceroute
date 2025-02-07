@@ -69,8 +69,7 @@ typedef struct	s_traceroute
 /*      ROOT       */
 /*******************/
 int					ft_traceroute(char *dest_addr);
-int					get_addr_structures(struct sockaddr_in *dest_addr_udp, \
-						struct sockaddr_in *dest_addr_icmp, char *dest_addr_str);
+void				get_addr_structures(t_traceroute *traceroute, char *dest_addr_str);
 void 				create_sockets(int *send_socket, int *recverr_socket);
 int 				loop(t_traceroute *traceroute, char *dest_addr_str);
 void    			display_traceroute_dest(char *dest_addr_str, \
@@ -95,6 +94,6 @@ char    *parsing(int argc, char **argv);
 /*     DISPLAY     */
 /*******************/
 void	display_help_and_exit(void);
-void	display_bad_option_and_exit(char *option, int position);
+void	display_bad_option_and_exit(char *option);
 
 #endif

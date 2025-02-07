@@ -2,10 +2,8 @@
 
 void	display_help_and_exit(void)
 {
-	printf("Usage:\n  traceroute host\n");
-	printf("Options:\n");
-	printf("  --help     Read this help and exit\n\n");
-	printf("Arguments:\n");
-	printf("+   host     The host to traceroute to\n");
+	printf("Usage: ft_traceroute [OPTION...] HOST\n");
+	printf("Print the route packets trace to network host.\n\n");
+	printf("  --help     give this help list\n");
 	exit(0);
 }

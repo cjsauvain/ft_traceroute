@@ -18,12 +18,10 @@ SRC	=	main.c							\
 		get_addr_structures.c			\
 		create_sockets.c				\
 		loop.c							\
-		display_traceroute_dest.c		\
 		receive_icmp_reply.c			\
 		clean_exit.c					\
 		build_ip_pckt.c					\
 		initialize_traceroute_struct.c	\
-		display_routing_infos.c			\
 		get_time.c						\
 		get_checksum.c					\
 
@@ -31,6 +29,8 @@ SRC_PARSING =	parsing.c	\
 
 SRC_DISPLAY =	display_help_and_exit.c			\
 				display_bad_option_and_exit.c	\
+				display_routing_infos.c			\
+				display_traceroute_dest.c		\
 
 SRCS =	$(addprefix $(SRCS_DIR)/, $(SRC))			\
 		$(addprefix $(SRCS_DIR)/parsing/, $(SRC_PARSING))	\

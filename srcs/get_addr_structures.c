@@ -4,7 +4,6 @@ static int	get_addr_struct(struct sockaddr_in *dest_addr, char *dest_addr_str, i
 {
 	struct addrinfo		hints;
 	struct addrinfo		*res;
-	int					status;
 
 	memset(&hints, 0, sizeof(hints));
 	hints.ai_family = AF_INET;
@@ -18,24 +17,21 @@ static int	get_addr_struct(struct sockaddr_in *dest_addr, char *dest_addr_str, i
 		hints.ai_socktype = SOCK_RAW;
 		hints.ai_protocol = IPPROTO_ICMP;
 	}
-
-	status = getaddrinfo(dest_addr_str, NULL, &hints, &res);
-	if (status)
-		return status;
+	if (getaddrinfo(dest_addr_str, NULL, &hints, &res))
+		return 1;
 	*dest_addr = *(struct sockaddr_in *)res->ai_addr;
 	dest_addr->sin_port = STARTING_PORT;
 	freeaddrinfo(res);
 	return 0;
 }
 
-int	get_addr_structures(struct sockaddr_in *dest_addr_udp, \
-		struct sockaddr_in *dest_addr_icmp, char *dest_addr_str)
+void	get_addr_structures(t_traceroute *traceroute, char *dest_addr_str)
 {
-	int	status;
-
-	status = get_addr_struct(dest_addr_udp, dest_addr_str, IPPROTO_UDP);
-	if (status)
-		return status;
-	status = get_addr_struct(dest_addr_icmp, dest_addr_str, IPPROTO_ICMP);
-	return status;
+	if (get_addr_struct(&traceroute->dest_addr_udp, dest_addr_str, IPPROTO_UDP))
+	{
+		dprintf(2, "ft_traceroute: unknown host\n");
+		close(traceroute->send_socket);
+		close(traceroute->recv_socket);
+		exit(1);
+	}
 }
