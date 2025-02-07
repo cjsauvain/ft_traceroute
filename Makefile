@@ -26,7 +26,6 @@ SRC	=	main.c							\
 		display_routing_infos.c			\
 		get_time.c						\
 		get_checksum.c					\
-		ft_strcmp.c						\
 
 SRC_PARSING =	parsing.c	\
 
