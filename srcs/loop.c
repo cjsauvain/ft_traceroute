@@ -36,7 +36,7 @@ int	loop(t_traceroute *traceroute, char *dest_addr_str)
 	hops = 1;
 	display_traceroute_dest(dest_addr_str, traceroute->dest_addr_udp);
 	status = send_probes(traceroute, hops);
-	while (hops <= MAX_HOP && traceroute->port_unreachable == false)
+	while (hops < MAX_HOP && traceroute->port_unreachable == false)
 	{
 		hops++;
 		traceroute->dest_addr_udp.sin_port++;

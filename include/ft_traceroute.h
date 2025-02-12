@@ -16,6 +16,7 @@
 # include <linux/ip.h>
 # include <sys/time.h>
 # include <stdbool.h>
+# include <ifaddrs.h>
 
 # define	UDP_HDR_SIZE		8
 # define	UDP_DATA_SIZE		9

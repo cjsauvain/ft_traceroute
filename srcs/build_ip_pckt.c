@@ -1,21 +1,41 @@
 #include "ft_traceroute.h"
 
-static u_int32_t	get_saddr(struct sockaddr_in dest_addr)
+static in_addr_t	get_localhost_addr(void)
 {
-	int					tmp_socket;
-	struct sockaddr_in	source_addr;
-	socklen_t			source_addr_len;
+	struct in_addr	localhost_addr;
 
-	tmp_socket = socket(AF_INET, SOCK_DGRAM, 0);
-	if (tmp_socket == -1)
-		return 0;//do clean exit
-	if (connect(tmp_socket, (struct sockaddr *)&dest_addr, sizeof(dest_addr)) == -1)
-		return 0;//do clean exit
-	source_addr_len = sizeof(source_addr);
-	if (getsockname(tmp_socket, (struct sockaddr *)&source_addr, &source_addr_len) == -1)
-		return 0;//do clean exit
+	if (inet_pton(AF_INET, "127.0.0.1", &localhost_addr) == -1)
+		perror("inet_pton");
+	return localhost_addr.s_addr;
+}
 
-	return source_addr.sin_addr.s_addr;
+static u_int32_t	get_saddr(struct sockaddr_in dest_addr_udp)
+{
+	struct ifaddrs		*interfaces, *cursor;
+	in_addr_t			localhost_addr;
+	struct sockaddr_in	*cursor_addrin;
+	u_int32_t			saddr;
+	
+	localhost_addr = get_localhost_addr();
+	if (localhost_addr <= 0)
+		return 0;
+	if (dest_addr_udp.sin_addr.s_addr == localhost_addr 
+			|| !dest_addr_udp.sin_addr.s_addr)
+		return localhost_addr;
+	if (getifaddrs(&interfaces) == -1)
+	{
+		perror("getifcursor_addrs");
+		return 0;
+	}
+	for (cursor = interfaces; cursor; cursor = cursor->ifa_next)
+	{
+		if (strcmp(cursor->ifa_name, "lo") && cursor->ifa_addr->sa_family == AF_INET)
+			break;
+	}
+	cursor_addrin = (struct sockaddr_in *)cursor->ifa_addr;
+	saddr = cursor_addrin->sin_addr.s_addr;
+	freeifaddrs(interfaces);
+	return saddr;
 }
 
 static struct iphdr	build_ip_hdr(struct sockaddr_in dest_addr_udp)
