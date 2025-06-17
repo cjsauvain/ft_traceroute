@@ -46,31 +46,46 @@ OBJS = $(subst $(SRCS_DIR)/,,$(SRCS:%.c=$(OBJS_DIR)/%.o))
 #####################
 #    Compilation	#
 #####################
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g
+CC = clang
+CFLAGS = -Wall -Wextra -std=c23
 INC_FOLDER = -I $(INC_DIR)
+
+ifeq ($(DEV), 1)
+CFLAGS += -g3
+USE_WARNINGS := 1
+EXTRA_DEPS += compile_commands.json
+endif
+
+ifneq ($(USE_WARNINGS), 1)
+CFLAGS += -Werror
+endif
+
+ifeq ($(SILENT), 1)
+CC=@clang
+endif
 
 #####################
 #       Rules       #
 #####################
+
+all: $(EXTRA_DEPS) $(NAME)
+
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c $(HEADERS)
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(INC_FOLDER) -c $< -o $@
 
-all: $(NAME)
-
-$(OBJS_DIR):
-	@mkdir -p	$(OBJS_DIR)/parsing	\
-				$(OBJS_DIR)/display	\
-
-$(NAME): $(OBJS_DIR) $(OBJS)
+$(NAME): $(OBJS)
 	$(CC) $(OBJS) -o $(NAME)
 
+compile_commands.json: clean
+	@bear -- make --no-print-directory SILENT=1 USE_WARNINGS=1 $(NAME) -j$(shell nproc)
+
 clean:
-	rm -rf $(OBJS_DIR)
+	@rm -rf $(OBJS_DIR)
 
 fclean: clean
-	rm -rf $(NAME)
+	@rm -rf $(NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re compile_commands.json

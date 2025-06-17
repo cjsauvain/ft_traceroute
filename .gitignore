@@ -2,3 +2,5 @@ ft_traceroute
 *.swp
 objects
 srcs/tags
+.cache
+compile_commands.json
