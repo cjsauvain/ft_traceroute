@@ -1,4 +1,7 @@
 #include "ft_traceroute.h"
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
 static in_addr_t	get_localhost_addr(void)
 {
@@ -29,7 +32,7 @@ static u_int32_t	get_saddr(struct sockaddr_in dest_addr_udp)
 	}
 	for (cursor = interfaces; cursor; cursor = cursor->ifa_next)
 	{
-		if (strcmp(cursor->ifa_name, "lo") && cursor->ifa_addr->sa_family == AF_INET)
+		if (ft_strcmp(cursor->ifa_name, "lo") && cursor->ifa_addr->sa_family == AF_INET)
 			break;
 	}
 	cursor_addrin = (struct sockaddr_in *)cursor->ifa_addr;

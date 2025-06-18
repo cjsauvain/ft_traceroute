@@ -1,4 +1,5 @@
 #include "ft_traceroute.h"
+#include <stdio.h>
 
 void	display_traceroute_dest(char *dest_addr_udp_str, struct sockaddr_in dest_addr_udp)
 {

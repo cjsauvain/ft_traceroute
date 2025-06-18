@@ -1,4 +1,6 @@
 #include "ft_traceroute.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 void	display_help_and_exit(void)
 {

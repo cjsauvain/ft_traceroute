@@ -1,4 +1,5 @@
 #include "ft_traceroute.h"
+#include <string.h>
 
 static void	put_pseudo_hdr_inside_buffer(struct iphdr iphdr, char *buffer)
 {

@@ -1,4 +1,5 @@
 #include "ft_traceroute.h"
+#include <stdio.h>
 
 static void	sendto_failure(int send_socket, int recv_socket, int hop)
 {

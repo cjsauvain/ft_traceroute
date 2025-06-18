@@ -1,16 +1,12 @@
 #ifndef	FT_TRACEROUTE_H
 # define FT_TRACEROUTE_H
 
-# include <stdlib.h>
-# include <stdio.h>
+# include "libft.h"
 # include <unistd.h>
-# include <time.h>
 # include <sys/socket.h>
 # include <sys/types.h>
 # include <netdb.h>
-# include <string.h>
 # include <arpa/inet.h>
-# include <errno.h>
 # include <linux/udp.h>
 # include <linux/icmp.h>
 # include <linux/ip.h>
@@ -84,7 +80,6 @@ void    			display_routing_infos(t_traceroute *traceroute, \
 						ssize_t bytes_received, int probe, int hop);
 suseconds_t 		get_time(void);
 u_int16_t   		get_checksum(t_ip_pckt ip_pckt);
-int 				ft_strcmp(char *s1, char *s2);
 
 /*******************/
 /*     PARSING     */

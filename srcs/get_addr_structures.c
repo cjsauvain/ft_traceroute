@@ -1,4 +1,11 @@
+#define _POSIX_C_SOURCE 200809L  // pour POSIX.1-2008 (C23 est compatible POSIX)
+#define _GNU_SOURCE         // pour GNU extensions
+
 #include "ft_traceroute.h"
+#include <stdio.h>
+#include <unistd.h>
+#include <string.h>
+#include <stdlib.h>
 
 static int	get_addr_struct(struct sockaddr_in *dest_addr, char *dest_addr_str, int proto)
 {

@@ -1,4 +1,5 @@
 #include "ft_traceroute.h"
+#include <string.h>
 
 t_traceroute	initialize_traceroute_struct(char *dest_addr_str)
 {

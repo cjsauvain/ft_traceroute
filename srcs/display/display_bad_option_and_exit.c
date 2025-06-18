@@ -1,4 +1,7 @@
 #include "ft_traceroute.h"
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 static int	check_help_option(char *option)
 {

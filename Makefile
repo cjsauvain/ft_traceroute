@@ -4,11 +4,18 @@
 NAME = ft_traceroute
 
 #####################
+#  Library Name 	#
+#####################
+LIBFT = libft.a
+
+#####################
 #    Directories	#
 #####################
 SRCS_DIR = srcs
-OBJS_DIR = objects
-INC_DIR  = include
+OBJS_DIR = obj
+INC_DIR  = inc
+LIBFT_DIR = libft
+LIBFT_INC = $(LIBFT_DIR)/inc
 
 #####################
 # Sources / Headers #
@@ -36,7 +43,7 @@ SRCS =	$(addprefix $(SRCS_DIR)/, $(SRC))			\
 		$(addprefix $(SRCS_DIR)/parsing/, $(SRC_PARSING))	\
 		$(addprefix $(SRCS_DIR)/display/, $(SRC_DISPLAY))	\
 
-HEADERS = $(INC_DIR)/ft_traceroute.h
+HEADERS = $(INC_DIR)/ft_traceroute.h $(LIBFT_INC)
 
 #####################
 #      Objects      #
@@ -48,16 +55,13 @@ OBJS = $(subst $(SRCS_DIR)/,,$(SRCS:%.c=$(OBJS_DIR)/%.o))
 #####################
 CC = clang
 CFLAGS = -Wall -Wextra -std=c23
-INC_FOLDER = -I $(INC_DIR)
+LIBFLAGS = -Llibft -lft
+INC_FOLDER = -I $(INC_DIR) -I $(LIBFT_INC)
 
 ifeq ($(DEV), 1)
 CFLAGS += -g3
 USE_WARNINGS := 1
 EXTRA_DEPS += compile_commands.json
-endif
-
-ifneq ($(USE_WARNINGS), 1)
-CFLAGS += -Werror
 endif
 
 ifeq ($(SILENT), 1)
@@ -68,22 +72,27 @@ endif
 #       Rules       #
 #####################
 
-all: $(EXTRA_DEPS) $(NAME)
+all: $(EXTRA_DEPS) $(LIBFT) $(NAME)
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c $(HEADERS)
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(INC_FOLDER) -c $< -o $@
 
+$(LIBFT):
+	@make --no-print-directory -C $(LIBFT_DIR)
+
 $(NAME): $(OBJS)
-	$(CC) $(OBJS) -o $(NAME)
+	$(CC) $(OBJS) $(LIBFLAGS) -o $(NAME)
 
 compile_commands.json: clean
 	@bear -- make --no-print-directory SILENT=1 USE_WARNINGS=1 $(NAME) -j$(shell nproc)
 
 clean:
+	make --no-print-directory clean -C $(LIBFT_DIR)
 	@rm -rf $(OBJS_DIR)
 
 fclean: clean
+	rm -f $(LIBFT_DIR)/$(LIBFT)
 	@rm -rf $(NAME)
 
 re: fclean all

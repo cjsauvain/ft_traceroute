@@ -1,4 +1,5 @@
 #include "ft_traceroute.h"
+#include <string.h>
 
 static void	get_icmp_reply(char *buffer, t_icmp_reply *icmp_reply)
 {

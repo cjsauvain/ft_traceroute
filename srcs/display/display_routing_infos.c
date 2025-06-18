@@ -1,4 +1,6 @@
 #include "ft_traceroute.h"
+#include <stdio.h>
+#include <string.h>
 
 void	display_hop_number(int hop)
 {
@@ -27,7 +29,7 @@ static void	display_stats(t_icmp_reply icmp_reply, suseconds_t tv_sent, \
 
 	addr.s_addr = icmp_reply.iphdr.saddr;
 	hop_ip_addr = inet_ntoa(addr);
-	if (strcmp(hop_ip_addr, prev_hop_ip_addr))
+	if (ft_strcmp(hop_ip_addr, prev_hop_ip_addr))
 		printf("%s  ", hop_ip_addr);
 	strcpy(prev_hop_ip_addr, hop_ip_addr);
 	int_part = (tv_recv - tv_sent) / 1000;

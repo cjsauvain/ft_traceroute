@@ -1,4 +1,6 @@
 #include "ft_traceroute.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 static int	set_timeout_option(int recv_socket)
 {
