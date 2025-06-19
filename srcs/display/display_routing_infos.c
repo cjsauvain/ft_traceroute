@@ -1,6 +1,5 @@
 #include "ft_traceroute.h"
-#include <stdio.h>
-#include <string.h>
+#include "libft.h"
 
 void	display_hop_number(int hop)
 {

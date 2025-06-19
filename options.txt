@@ -1,5 +1,6 @@
--q, --tries=NUM            send NUM probe packets per hop (default: 3)
--p, --port=PORT            use destination PORT port (default: 33434)
--m, --max-hop=NUM          set maximal hop count (default: 64)
--f, --first-hop=NUM        set initial hop distance, i.e., time-to-live
--w, --wait=NUM             wait NUM seconds for response (default: 3)
+-q, --tries=NUM				send NUM probe packets per hop (default: 3)
+-p, --port=PORT				use destination PORT port (default: 33434)
+-m, --max-hop=NUM			set maximal hop count (default: 64)
+-f, --first-hop=NUM			set initial hop distance, i.e., time-to-live
+-w, --wait=NUM				wait NUM seconds for response (default: 3)
+-h, --help					display this help list

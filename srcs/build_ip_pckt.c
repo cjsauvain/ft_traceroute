@@ -1,7 +1,5 @@
 #include "ft_traceroute.h"
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
+#include "libft.h"
 
 static in_addr_t	get_localhost_addr(void)
 {

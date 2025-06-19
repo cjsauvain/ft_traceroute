@@ -28,14 +28,12 @@ SRC	=	main.c							\
 		receive_icmp_reply.c			\
 		clean_exit.c					\
 		build_ip_pckt.c					\
-		initialize_traceroute_struct.c	\
 		get_time.c						\
 		get_checksum.c					\
 
 SRC_PARSING =	parsing.c	\
 
 SRC_DISPLAY =	display_help_and_exit.c			\
-				display_bad_option_and_exit.c	\
 				display_routing_infos.c			\
 				display_traceroute_dest.c		\
 
@@ -55,7 +53,7 @@ OBJS = $(subst $(SRCS_DIR)/,,$(SRCS:%.c=$(OBJS_DIR)/%.o))
 #####################
 CC = clang
 CFLAGS = -Wall -Wextra -std=c23
-LIBFLAGS = -Llibft -lft
+LIBFLAGS = -L$(LIBFT_DIR) -lft
 INC_FOLDER = -I $(INC_DIR) -I $(LIBFT_INC)
 
 ifeq ($(DEV), 1)
@@ -64,35 +62,31 @@ USE_WARNINGS := 1
 EXTRA_DEPS += compile_commands.json
 endif
 
-ifeq ($(SILENT), 1)
-CC=@clang
-endif
-
 #####################
 #       Rules       #
 #####################
 
-all: $(EXTRA_DEPS) $(LIBFT) $(NAME)
+all: $(EXTRA_DEPS) $(NAME)
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c $(HEADERS)
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(INC_FOLDER) -c $< -o $@
 
 $(LIBFT):
-	@make --no-print-directory -C $(LIBFT_DIR)
+	make --no-print-directory -s -C $(LIBFT_DIR)
 
-$(NAME): $(OBJS)
+$(NAME): $(LIBFT) $(OBJS)
 	$(CC) $(OBJS) $(LIBFLAGS) -o $(NAME)
 
 compile_commands.json: clean
-	@bear -- make --no-print-directory SILENT=1 USE_WARNINGS=1 $(NAME) -j$(shell nproc)
+	@bear -- make --no-print-directory -s USE_WARNINGS=1 $(NAME) -j$(shell nproc)
 
 clean:
-	make --no-print-directory clean -C $(LIBFT_DIR)
+	make clean --no-print-directory -s -C $(LIBFT_DIR)
 	@rm -rf $(OBJS_DIR)
 
 fclean: clean
-	rm -f $(LIBFT_DIR)/$(LIBFT)
+	@rm -f $(LIBFT_DIR)/$(LIBFT)
 	@rm -rf $(NAME)
 
 re: fclean all

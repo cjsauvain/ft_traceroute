@@ -2,14 +2,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-static int	set_timeout_option(int recv_socket)
+static int	set_timeout_option(int recv_socket, int timeout)
 {
-	struct timeval	timeout;
+	struct timeval	timeout_struct;
 	int				status;
 
-	timeout.tv_sec = PROBS_TIMEOUT_SEC;
-	timeout.tv_usec = 0;
-	status = setsockopt(recv_socket, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout));
+	timeout_struct.tv_sec = timeout;
+	timeout_struct.tv_usec = 0;
+	status = setsockopt(recv_socket, SOL_SOCKET, SO_RCVTIMEO, &timeout_struct, sizeof(timeout_struct));
 	return status;
 }
 
@@ -24,7 +24,7 @@ static int	set_hdr_inc_option(int send_socket)
 	return status;
 }
 
-void	create_sockets(int *send_socket, int *recv_socket)
+void	create_sockets(int *send_socket, int *recv_socket, int timeout)
 {
 	*send_socket = socket(AF_INET, SOCK_RAW, IPPROTO_UDP);
 	if (*send_socket == -1)
@@ -39,7 +39,7 @@ void	create_sockets(int *send_socket, int *recv_socket)
 		close(*send_socket);
 		exit(1);
 	}
-	if (set_timeout_option(*recv_socket) == -1)
+	if (set_timeout_option(*recv_socket, timeout) == -1)
 		clean_exit(*send_socket, *recv_socket, "ft_traceroute: setsockopt", 1);
 	if(set_hdr_inc_option(*send_socket) == -1)
 		clean_exit(*send_socket, *recv_socket, "ft_traceroute: setsockopt", 1);

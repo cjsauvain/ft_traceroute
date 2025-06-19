@@ -14,7 +14,7 @@ static int	send_probes(t_traceroute *traceroute, int hop)
 	int	probes;
 
 	probes = 0;
-	while (probes < 3)
+	while (probes < traceroute->opt.number_of_probes)
 	{
 		if (sendto(traceroute->send_socket, &traceroute->ip_pckt, \
 				IP_HDR_SIZE + UDP_PCKT_SIZE, 0, \
@@ -35,9 +35,9 @@ int	loop(t_traceroute *traceroute, char *dest_addr_str)
 	int	hops;
 
 	hops = 1;
-	display_traceroute_dest(dest_addr_str, traceroute->dest_addr_udp);
+	display_traceroute_dest(dest_addr_str, traceroute->dest_addr_udp, traceroute->opt.max_hop);
 	status = send_probes(traceroute, hops);
-	while (hops < MAX_HOP && traceroute->port_unreachable == false)
+	while (hops < traceroute->opt.max_hop && traceroute->port_unreachable == false)
 	{
 		hops++;
 		traceroute->dest_addr_udp.sin_port++;
