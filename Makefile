@@ -33,9 +33,14 @@ SRC	=	main.c							\
 
 SRC_PARSING =	parsing.c	\
 
-SRC_DISPLAY =	display_help_and_exit.c			\
-				display_routing_infos.c			\
-				display_traceroute_dest.c		\
+SRC_DISPLAY =	display_help_and_exit.c				\
+				display_routing_infos.c				\
+				display_traceroute_dest.c			\
+				display_invalid_number_of_probes.c	\
+				display_invalid_dest_port.c			\
+				display_invalid_max_hop.c			\
+				display_invalid_first_hop.c			\
+				display_invalid_wait.c			\
 
 SRCS =	$(addprefix $(SRCS_DIR)/, $(SRC))			\
 		$(addprefix $(SRCS_DIR)/parsing/, $(SRC_PARSING))	\

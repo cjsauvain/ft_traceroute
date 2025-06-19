@@ -54,6 +54,6 @@ void	display_routing_infos(t_traceroute *traceroute, ssize_t bytes_received, \
 			&& traceroute->icmp_reply.icmphdr.code == 3)
 			traceroute->port_unreachable = true;
 	}
-	if (probe == 2)
+	if (probe == traceroute->opt.number_of_probes - 1)
 		printf("\n");
 }

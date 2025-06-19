@@ -49,7 +49,7 @@ typedef struct	s_options
 {
 	int	number_of_probes; //done
 	int	dest_port; //done
-	int	max_hop;
+	int	max_hop; //done
 	int	first_hop;
 	int	wait; //done
 }	t_options;
@@ -75,14 +75,10 @@ int					ft_traceroute(t_traceroute traceroute, char *dest_addr);
 void				get_addr_structures(t_traceroute *traceroute, char *dest_addr_str, int dest_port);
 void 				create_sockets(int *send_socket, int *recverr_socket, int timeout);
 int 				loop(t_traceroute *traceroute, char *dest_addr_str);
-void    			display_traceroute_dest(char *dest_addr_str, \
-						struct sockaddr_in dest_addr_udp, int max_hop);
 void    			receive_icmp_reply(t_traceroute *traceroute, int probe, int hop);
 void    			clean_exit(int send_socket, int recv_socket, \
 						const char *origin, int status);
-t_ip_pckt			build_ip_pckt(struct sockaddr_in dest_addr_udp);
-void    			display_routing_infos(t_traceroute *traceroute, \
-						ssize_t bytes_received, int probe, int hop);
+t_ip_pckt			build_ip_pckt(struct sockaddr_in dest_addr_udp, int first_hop);
 suseconds_t 		get_time(void);
 u_int16_t   		get_checksum(t_ip_pckt ip_pckt);
 
@@ -95,5 +91,14 @@ char    *parsing(int argc, char **argv, t_traceroute *traceroute);
 /*     DISPLAY     */
 /*******************/
 void	display_help_and_exit(void);
+void    display_routing_infos(t_traceroute *traceroute, \
+			ssize_t bytes_received, int probe, int hop);
+void 	display_traceroute_dest(char *dest_addr_str, \
+			struct sockaddr_in dest_addr_udp, int max_hop);
+void	display_invalid_number_of_probes(char *progname);
+void	display_invalid_dest_port(char *progname, char *dest_port);
+void	display_invalid_max_hop(char *progname, char *max_hop);
+void	display_invalid_first_hop(char *progname, char *first_hop);
+void	display_invalid_wait(char *progname, char *wait);
 
 #endif

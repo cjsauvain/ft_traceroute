@@ -39,7 +39,7 @@ static u_int32_t	get_saddr(struct sockaddr_in dest_addr_udp)
 	return saddr;
 }
 
-static struct iphdr	build_ip_hdr(struct sockaddr_in dest_addr_udp)
+static struct iphdr	build_ip_hdr(struct sockaddr_in dest_addr_udp, int first_hop)
 {
 	struct iphdr	iphdr;
 
@@ -49,7 +49,7 @@ static struct iphdr	build_ip_hdr(struct sockaddr_in dest_addr_udp)
 	iphdr.tot_len = htons(IP_HDR_SIZE + UDP_PCKT_SIZE);
 	iphdr.id = htons(getpid());
 	iphdr.frag_off = htons(0x4000);
-	iphdr.ttl = 1;
+	iphdr.ttl = first_hop;
 	iphdr.protocol = IPPROTO_UDP;
 	iphdr.check = 0;
 	iphdr.saddr = get_saddr(dest_addr_udp);
@@ -72,11 +72,11 @@ static t_udp_pckt	build_udp_pckt(struct sockaddr_in dest_addr_udp)
 	return udp_pckt;
 }
 
-t_ip_pckt	build_ip_pckt(struct sockaddr_in dest_addr_udp)
+t_ip_pckt	build_ip_pckt(struct sockaddr_in dest_addr_udp, int first_hop)
 {
 	t_ip_pckt	ip_pckt;
 
-	ip_pckt.iphdr = build_ip_hdr(dest_addr_udp);
+	ip_pckt.iphdr = build_ip_hdr(dest_addr_udp, first_hop);
 	ip_pckt.udp_pckt = build_udp_pckt(dest_addr_udp);
 	ip_pckt.udp_pckt.udphdr.check = get_checksum(ip_pckt);
 
